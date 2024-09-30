@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 
-const FeedbackNotification: React.FC = () => {
+interface FeedbackNotificationProps {
+  title?: string;
+  message?: string;
+  bgColor?: string;
+  borderColor?: string;
+}
+
+const FeedbackNotification: React.FC<FeedbackNotificationProps> = ({
+  title = "Notification",
+  message = "This is your default message.",
+  bgColor = "bg-white",
+  borderColor = "border-blue-500",
+}) => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const handleClose = () => {
@@ -11,54 +23,15 @@ const FeedbackNotification: React.FC = () => {
     <>
       {isVisible && (
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            backgroundColor: "#fff",
-            border: "1px solid #e0e0e0",
-            borderRadius: "5px",
-            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-            padding: "16px",
-            width: "400px",
-            margin: "20px auto",
-            position: "relative",
-          }}
+          className={`flex items-center justify-between ${bgColor} ${borderColor} border-l-4 shadow-md rounded-md p-4 w-96 mx-auto mt-5`}
         >
-          <div
-            style={{
-              borderLeft: "4px solid #1976d2",
-              paddingLeft: "12px",
-            }}
-          >
-            <p
-              style={{
-                margin: 0,
-                fontWeight: 600,
-                fontSize: "16px",
-              }}
-            >
-              We notify you that
-            </p>
-            <p
-              style={{
-                margin: 0,
-                color: "#616161",
-                fontSize: "14px",
-              }}
-            >
-              You are now obligated to give a star to Mantine project on GitHub
-            </p>
+          <div>
+            <p className="font-semibold text-lg m-0">{title}</p>
+            <p className="text-gray-600 text-sm m-0">{message}</p>
           </div>
           <button
             onClick={handleClose}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "18px",
-              color: "#616161",
-            }}
+            className="text-gray-500 hover:text-gray-700 text-lg font-bold focus:outline-none"
           >
             &#x2715;
           </button>

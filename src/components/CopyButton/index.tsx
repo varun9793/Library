@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 
-const CopyButton: React.FC = () => {
-  const [copySuccess, setCopySuccess] = useState<string>("");
+interface CopyButtonProps {
+  textToCopy: string;
+  buttonLabel?: string;
+  successMessage?: string;
+  failureMessage?: string;
+}
 
-  const textToCopy = "Hello, this is the text to copy!";
+const CopyButton: React.FC<CopyButtonProps> = ({
+  textToCopy,
+  buttonLabel = "Copy",
+  successMessage = "Copied!",
+  failureMessage = "Failed to copy!"
+}) => {
+  const [copySuccess, setCopySuccess] = useState<string>("");
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(textToCopy);
-      setCopySuccess("Copied!");
+      setCopySuccess(successMessage);
     } catch (err) {
-      setCopySuccess("Failed to copy!");
+      setCopySuccess(failureMessage);
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <p style={{ fontSize: "18px" }}>{textToCopy}</p>
+    <div className="text-center mt-6">
+      <p className="text-lg">{textToCopy}</p>
       <button
         onClick={handleCopy}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          margin: "10px",
-        }}
+        className="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
       >
-        Copy
+        {buttonLabel}
       </button>
-      {copySuccess && <p style={{ marginTop: "10px", fontSize: "18px" }}>{copySuccess}</p>}
+      {copySuccess && <p className="mt-2 text-lg">{copySuccess}</p>}
     </div>
   );
 };

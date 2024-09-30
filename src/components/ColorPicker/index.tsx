@@ -1,26 +1,34 @@
 import React, { useState } from "react";
 
-const ColorPicker: React.FC = () => {
-  const [color, setColor] = useState<string>("#000000");
+interface ColorPickerProps {
+  label?: string;
+  defaultColor?: string;
+}
+
+const ColorPicker: React.FC<ColorPickerProps> = ({ label = "Choose a color", defaultColor = "#000000" }) => {
+  const [color, setColor] = useState<string>(defaultColor);
 
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setColor(e.target.value);
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <label htmlFor="colorPicker" style={{ fontSize: "18px" }}>
-        Choose a color: 
+    <div className="flex flex-col items-center mt-6">
+      <label htmlFor="colorPicker" className="text-lg font-medium">
+        {label}:
       </label>
       <input
         id="colorPicker"
         type="color"
         value={color}
         onChange={handleColorChange}
-        style={{ marginLeft: "10px", cursor: "pointer" }}
+        className="mt-2 cursor-pointer"
       />
-      <p style={{ marginTop: "20px", fontSize: "18px" }}>
-        Selected color: <span style={{ color: color }}>{color}</span>
+      <p className="mt-4 text-lg">
+        Selected color:{" "}
+        <span className="font-bold" style={{ color: color }}>
+          {color}
+        </span>
       </p>
     </div>
   );
