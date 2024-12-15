@@ -10,4 +10,3 @@ export { default as Navbar } from "./Navbar";
 export { default as RadioButtonInput } from "./RadioButtonInput";
 export { default as SliderInput } from "./SliderInput";
 export { default as TextInput } from "./TextInput";
-
